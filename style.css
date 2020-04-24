@@ -5,8 +5,21 @@
 
 .answers {
     margin-top: 4rem !important;
+    list-style-type: none;
+    position: relative;
+}
+
+.btn {
+    align-content: space-evenly;
 }
 
 .progress {
     margin-top: 14rem;
+}
+
+#timer {
+    text-align: center;
+    line-height: 100px;
+    margin-right: 50px;
+    font-size: 90px;
 }
