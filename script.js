@@ -13,6 +13,14 @@ function timer() {
     }, 1000); 
 }
 
+function wrongAnswerTimer() {
+    setInterval(function() {
+        $("#timer").html(time); 
+        time -= 10; 
+    }, 1000); 
+}
+
+
 // Define Question & Answer Objects 
 var qa1 = {
     q: "This is question 1", 
@@ -57,7 +65,11 @@ var qa5 = {
 
 
 $(".btn-secondary").on("click", function() {
-    //timer(); 
+
+    // Start timer on first click, but not any click after
+    if (counter === 0) {
+        timer(); 
+    }
     // capture value of button pressed
     //debugger
     var selBtn = parseInt($(this).val()); 
@@ -81,9 +93,11 @@ $(".btn-secondary").on("click", function() {
     }
 
     //check for right answer 
-    debugger 
+    //debugger 
     if (btnText === currentA) {
         score += 10; 
+    } else {
+        time -= 10;
     }
 
 
