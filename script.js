@@ -1,6 +1,7 @@
 // question  & answer picker
 var time = 60; 
 let score = 0;
+let counter = 0; 
 
 // console.log(time); 
 
@@ -10,13 +11,12 @@ function timer() {
         $("#timer").html(time); 
         time--; 
     }, 1000); 
-
 }
 
 // Define Question & Answer Objects 
 var qa1 = {
     q: "This is question 1", 
-    a: ["a1", "a", "a", "a"], 
+    a: ["Button 1", "b", "c", "d"], 
     correct: function() {
         return this.a[0];
     }
@@ -57,56 +57,40 @@ var qa5 = {
 
 
 $(".btn-secondary").on("click", function() {
-    debugger
     //timer(); 
-    // capture value of button pressed 
+    // capture value of button pressed
+    //debugger
     var selBtn = parseInt($(this).val()); 
+    //debugger
+    var btnText = ($(this).text()); 
     console.log(selBtn); 
+    console.log(btnText); 
 
-    // define non-shuffled ? order
+    // define ? order
     var qOrder = [qa1, qa2, qa3, qa4, qa5]; 
     console.log(qOrder); 
 
+    // Change html content for #question element, to question body
+    var currentQ = qOrder[counter];
+    var currentA = currentQ.correct(); 
+    $("#question").html(currentQ.q);
 
-    // define shuffled ? order
-    qShuffled = shuffle; 
-    console.log(qShuffled); 
-
-    // iterate through shuffled ? order
-    for (i = 0; i < qShuffled.length; i++) {
-
-        // pick question from q object
-        currentQ = qShuffled[i].q; 
-        console.log(currentQ); 
-
-        // Change html content for #question element, to question body
-        $("#question").html(currentQ);
-
-        // Change html content for #answer element, to answer array 
-        for (i=1; i < 5; i++) {
-            $(`#btn${i}`).html(qShuffled.a[i]);
-        }
+    // Change html content for #answer element, to answer array 
+    for (i=1; i < 5; i++) {
+        $(`#btn${i}`).html(currentQ.a[i - 1]);
     }
+
+    //check for right answer 
+    debugger 
+    if (btnText === currentA) {
+        score += 10; 
+    }
+
+
+    // increment counter so that next question in series can be asked
+    counter++; 
 });
 
-var shuffle = function (qOrder) {
-
-	var currentIndex = array.length;
-	var temporaryValue, randomIndex;
-
-	// While there remain elements to shuffle...
-	while (0 !== currentIndex) {
-		// Pick a remaining element...
-		randomIndex = Math.floor(Math.random() * currentIndex);
-		currentIndex -= 1;
-
-		// And swap it with the current element.
-		temporaryValue = qOrder[currentIndex];
-		qOrder[currentIndex] = qOrder[randomIndex];
-		qOrder[randomIndex] = temporaryValue;
-    }
-    return qOrder;
-}
 
 	
 
